@@ -155,86 +155,19 @@
             background: rgba(255, 255, 255, 0.15);
         }
 
-        /* Enhanced Circular Scroll Indicator */
-        .scroll-indicator {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 70px;
-            height: 70px;
-            z-index: 1000;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            animation: pulse 2s ease-in-out infinite;
+        /* Parallax first section */
+        .section.parallax-section {
+            position: relative;
+            overflow: hidden;
+            transform-style: preserve-3d;
+            will-change: transform;
+            transition: transform 0.1s ease-out;
         }
 
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-
-        .scroll-indicator:hover {
-            transform: scale(1.2) rotate(5deg);
-            filter: drop-shadow(0 10px 25px rgba(0,0,0,0.4));
-        }
-
-        .scroll-indicator:active {
-            transform: scale(0.95);
-        }
-
-        .progress-ring {
-            transform: rotate(-90deg);
-            width: 100%;
-            height: 100%;
-        }
-
-        .progress-ring-circle {
-            stroke: rgba(255, 255, 255, 0.2);
-            stroke-width: 5;
-            fill: transparent;
-            r: 28;
-            cx: 35;
-            cy: 35;
-        }
-
-        .progress-ring-progress {
-            stroke: url(#progressGradient);
-            stroke-width: 5;
-            stroke-linecap: round;
-            fill: transparent;
-            r: 28;
-            cx: 35;
-            cy: 35;
-            stroke-dasharray: 175.929; /* 2 * PI * r */
-            stroke-dashoffset: 175.929;
-            transition: stroke-dashoffset 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-            filter: drop-shadow(0 0 10px rgba(255,255,255,0.8));
-        }
-
-        .progress-percentage {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 13px;
-            font-weight: 700;
-            color: white;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-            font-family: 'Segoe UI', sans-serif;
-        }
-
-        /* Enhanced Glassmorphism effect */
-        .scroll-indicator-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.05));
-            backdrop-filter: blur(15px);
-            border-radius: 50%;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            box-shadow: 0 8px 32px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.4);
+        .parallax-content {
+            transform-style: preserve-3d;
+            will-change: transform;
+            transition: transform 0.1s ease-out;
         }
 
         /* Responsive design */
@@ -371,125 +304,112 @@
 </head>
 <body>
     <!-- Demo Content Sections -->
-    <section class="section">
-        <div>
+    <section class="section parallax-section">
+        <div class="parallax-content">
             <h1>Welcome to Your Site</h1>
-            <p>This is a demonstration of the circular scroll indicator. As you scroll down, watch the progress ring fill up in the bottom right corner. The indicator shows exactly how much of the page you've scrolled through.</p>
+            <p>This is a demonstration of the parallax scroll effect. As you scroll down, watch this section move back into the distance. When you scroll up, it comes forward again, creating a beautiful 3D depth effect.</p>
         </div>
     </section>
 
     <section class="section">
         <div>
             <h1>Section Two</h1>
-            <p>The scroll indicator is fully responsive and includes smooth animations. It features a glassmorphism design with a subtle backdrop blur effect that looks great on any background.</p>
+            <p>The parallax effect creates a beautiful sense of depth and movement. The first section appears to move away as you scroll down, and comes closer as you scroll back up, creating an immersive 3D experience.</p>
         </div>
     </section>
 
     <section class="section">
         <div>
             <h1>Section Three</h1>
-            <p>You can click on the scroll indicator to quickly jump back to the top of the page. The percentage inside shows your exact scroll progress, and the ring fills up as you scroll down.</p>
+            <p>This parallax animation is smooth and responsive, working perfectly on both desktop and mobile devices. The effect is achieved using CSS transforms and JavaScript scroll calculations.</p>
         </div>
     </section>
 
     <section class="section">
         <div>
             <h1>Section Four</h1>
-            <p>The framework is easy to customize - you can change colors, size, position, and styling to match your brand. The indicator works on both desktop and mobile devices.</p>
+            <p>The framework maintains excellent performance while providing this stunning visual effect. The parallax animation adds depth and engagement to your website without compromising loading speed.</p>
         </div>
     </section>
 
     <section class="section">
         <div>
             <h1>Final Section</h1>
-            <p>You've reached the end! The scroll indicator should now show 100%. This framework provides a professional and engaging way to show scroll progress on your website.</p>
+            <p>You've reached the end! Scroll back up to see the parallax effect in reverse - the first section will come forward as you scroll up, creating a beautiful interactive experience.</p>
         </div>
     </section>
 
-    <!-- Circular Scroll Indicator -->
-    <div class="scroll-indicator" onclick="scrollToTop()">
-        <div class="scroll-indicator-bg"></div>
-        <svg class="progress-ring">
-            <defs>
-                <linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1" />
-                    <stop offset="50%" style="stop-color:#f0f0f0;stop-opacity:0.8" />
-                    <stop offset="100%" style="stop-color:#ffffff;stop-opacity:1" />
-                </linearGradient>
-            </defs>
-            <circle class="progress-ring-circle"></circle>
-            <circle class="progress-ring-progress" id="progress"></circle>
-        </svg>
-        <div class="progress-percentage" id="percentage">0%</div>
-    </div>
+
 
     <script>
-        // Enhanced scroll indicator functionality
-        const progressRing = document.getElementById('progress');
-        const percentageDisplay = document.getElementById('percentage');
-        const radius = progressRing.r.baseVal.value;
-        const circumference = 2 * Math.PI * radius;
+        // Parallax scroll effect for first section
+        const parallaxSection = document.querySelector('.parallax-section');
+        const parallaxContent = document.querySelector('.parallax-content');
+        let lastScrollTop = 0;
 
-        // Set initial stroke-dasharray
-        progressRing.style.strokeDasharray = circumference;
-        progressRing.style.strokeDashoffset = circumference;
-
-        function updateScrollProgress() {
+        function updateParallaxEffect() {
             const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            const scrollPercent = scrollTop / docHeight;
-            const progressPercent = Math.round(scrollPercent * 100);
+            const windowHeight = window.innerHeight;
+            const sectionHeight = parallaxSection.offsetHeight;
             
-            // Update the progress ring with smooth animation
-            const offset = circumference - (scrollPercent * circumference);
-            progressRing.style.strokeDashoffset = offset;
+            // Calculate how much of the first section is visible
+            const sectionTop = parallaxSection.getBoundingClientRect().top;
+            const sectionBottom = sectionTop + sectionHeight;
             
-            // Update percentage display with smooth color transition
-            percentageDisplay.textContent = progressPercent + '%';
-            
-            // Add dynamic styling based on progress
-            if (progressPercent > 75) {
-                progressRing.style.filter = 'drop-shadow(0 0 15px rgba(255,255,255,1))';
-            } else if (progressPercent > 50) {
-                progressRing.style.filter = 'drop-shadow(0 0 10px rgba(255,255,255,0.8))';
-            } else {
-                progressRing.style.filter = 'drop-shadow(0 0 5px rgba(255,255,255,0.6))';
+            // Only apply parallax when the first section is in view
+            if (sectionBottom > 0 && sectionTop < windowHeight) {
+                // Calculate scroll progress (0 to 1)
+                const scrollProgress = Math.max(0, Math.min(1, (windowHeight - sectionTop) / (windowHeight + sectionHeight)));
+                
+                // Determine scroll direction
+                const scrollDirection = scrollTop > lastScrollTop ? 'down' : 'up';
+                
+                // Apply parallax transformation
+                const parallaxOffset = scrollProgress * 50; // Adjust multiplier for effect intensity
+                const scaleEffect = 1 - (scrollProgress * 0.2); // Slight scale effect
+                const opacityEffect = 1 - (scrollProgress * 0.3); // Fade effect
+                
+                // Apply transforms based on scroll direction
+                if (scrollDirection === 'down') {
+                    // Moving away (back in picture)
+                    parallaxContent.style.transform = `translateZ(-${parallaxOffset}px) scale(${scaleEffect})`;
+                    parallaxSection.style.opacity = opacityEffect;
+                } else {
+                    // Coming forward
+                    parallaxContent.style.transform = `translateZ(-${parallaxOffset}px) scale(${scaleEffect})`;
+                    parallaxSection.style.opacity = opacityEffect;
+                }
+                
+                // Alternative CSS transform approach for better browser support
+                const translateY = scrollProgress * 30;
+                const scale = scaleEffect;
+                
+                parallaxContent.style.transform = `translateY(${translateY}px) scale(${scale})`;
+                parallaxSection.style.opacity = opacityEffect;
             }
-        }
-
-        function scrollToTop() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
             
-            // Add click animation
-            const indicator = document.querySelector('.scroll-indicator');
-            indicator.style.transform = 'scale(0.9) rotate(-10deg)';
-            setTimeout(() => {
-                indicator.style.transform = '';
-            }, 200);
+            lastScrollTop = scrollTop;
         }
 
         // Enhanced scroll event listener with better performance
-        let ticking = false;
+        let parallaxTicking = false;
         
-        function requestTick() {
-            if (!ticking) {
+        function requestParallaxTick() {
+            if (!parallaxTicking) {
                 requestAnimationFrame(() => {
-                    updateScrollProgress();
-                    ticking = false;
+                    updateParallaxEffect();
+                    parallaxTicking = false;
                 });
-                ticking = true;
+                parallaxTicking = true;
             }
         }
 
-        // Smooth scroll progress updates
-        window.addEventListener('scroll', requestTick, { passive: true });
+        // Smooth parallax updates
+        window.addEventListener('scroll', requestParallaxTick, { passive: true });
 
         // Initialize on page load with fade-in animation
         window.addEventListener('load', function() {
-            updateScrollProgress();
+            updateParallaxEffect();
             
             // Add fade-in animation to sections
             const sections = document.querySelectorAll('.section');
@@ -503,7 +423,7 @@
         let resizeTimeout;
         window.addEventListener('resize', function() {
             clearTimeout(resizeTimeout);
-            resizeTimeout = setTimeout(updateScrollProgress, 100);
+            resizeTimeout = setTimeout(updateParallaxEffect, 100);
         });
 
         // Add intersection observer for better performance
@@ -522,7 +442,7 @@
 
         // Observe all sections for scroll animations
         document.addEventListener('DOMContentLoaded', function() {
-            const sections = document.querySelectorAll('.section');
+            const sections = document.querySelectorAll('.section:not(.parallax-section)');
             sections.forEach(section => {
                 observer.observe(section);
             });
