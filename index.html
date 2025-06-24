@@ -12,58 +12,174 @@
         }
 
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
             color: #333;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated background particles */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 50%, rgba(255,255,255,0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(255,255,255,0.05) 0%, transparent 50%),
+                        radial-gradient(circle at 40% 80%, rgba(255,255,255,0.08) 0%, transparent 50%);
+            animation: floatingParticles 20s ease-in-out infinite;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        @keyframes floatingParticles {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
         }
 
         /* Demo content sections */
         .section {
             min-height: 100vh;
-            padding: 60px 20px;
+            padding: 80px 40px;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
+            position: relative;
+            overflow: hidden;
         }
 
-        .section:nth-child(odd) {
-            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+        /* Enhanced gradient backgrounds with animation */
+        .section:nth-child(1) {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #ffecd2 100%);
+            animation: gradientShift 8s ease-in-out infinite;
         }
 
-        .section:nth-child(even) {
-            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+        .section:nth-child(2) {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 50%, #d299c2 100%);
+            animation: gradientShift 10s ease-in-out infinite reverse;
+        }
+
+        .section:nth-child(3) {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 50%, #ff9a9e 100%);
+            animation: gradientShift 12s ease-in-out infinite;
+        }
+
+        .section:nth-child(4) {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            animation: gradientShift 14s ease-in-out infinite reverse;
+        }
+
+        .section:nth-child(5) {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 50%, #43e97b 100%);
+            animation: gradientShift 16s ease-in-out infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-size: 200% 200%; background-position: 0% 50%; }
+            50% { background-size: 200% 200%; background-position: 100% 50%; }
+        }
+
+        /* Floating elements for each section */
+        .section::before {
+            content: '';
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            top: 10%;
+            right: 10%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .section::after {
+            content: '';
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            bottom: 10%;
+            left: 10%;
+            animation: float 8s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.7; }
+            50% { transform: translateY(-30px) rotate(180deg); opacity: 1; }
         }
 
         .section h1 {
-            font-size: 3rem;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            font-size: 3.5rem;
+            margin-bottom: 30px;
+            text-shadow: 3px 3px 8px rgba(0,0,0,0.2);
+            background: linear-gradient(45deg, #fff, #f0f0f0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: titleGlow 3s ease-in-out infinite alternate;
+            position: relative;
+            z-index: 2;
+        }
+
+        @keyframes titleGlow {
+            from { filter: drop-shadow(0 0 10px rgba(255,255,255,0.3)); }
+            to { filter: drop-shadow(0 0 20px rgba(255,255,255,0.6)); }
         }
 
         .section p {
-            font-size: 1.2rem;
-            max-width: 600px;
+            font-size: 1.3rem;
+            max-width: 700px;
             margin: 0 auto;
-            opacity: 0.8;
+            opacity: 0.9;
+            line-height: 1.8;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 2;
+            transition: all 0.3s ease;
         }
 
-        /* Circular Scroll Indicator */
+        .section p:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        /* Enhanced Circular Scroll Indicator */
         .scroll-indicator {
             position: fixed;
             bottom: 30px;
             right: 30px;
-            width: 60px;
-            height: 60px;
+            width: 70px;
+            height: 70px;
             z-index: 1000;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
 
         .scroll-indicator:hover {
-            transform: scale(1.1);
-            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.3));
+            transform: scale(1.2) rotate(5deg);
+            filter: drop-shadow(0 10px 25px rgba(0,0,0,0.4));
+        }
+
+        .scroll-indicator:active {
+            transform: scale(0.95);
         }
 
         .progress-ring {
@@ -74,25 +190,25 @@
 
         .progress-ring-circle {
             stroke: rgba(255, 255, 255, 0.2);
-            stroke-width: 4;
+            stroke-width: 5;
             fill: transparent;
-            r: 26;
-            cx: 30;
-            cy: 30;
+            r: 28;
+            cx: 35;
+            cy: 35;
         }
 
         .progress-ring-progress {
-            stroke: #fff;
-            stroke-width: 4;
+            stroke: url(#progressGradient);
+            stroke-width: 5;
             stroke-linecap: round;
             fill: transparent;
-            r: 26;
-            cx: 30;
-            cy: 30;
-            stroke-dasharray: 163.363; /* 2 * PI * r */
-            stroke-dashoffset: 163.363;
-            transition: stroke-dashoffset 0.1s ease;
-            filter: drop-shadow(0 0 6px rgba(255,255,255,0.6));
+            r: 28;
+            cx: 35;
+            cy: 35;
+            stroke-dasharray: 175.929; /* 2 * PI * r */
+            stroke-dashoffset: 175.929;
+            transition: stroke-dashoffset 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            filter: drop-shadow(0 0 10px rgba(255,255,255,0.8));
         }
 
         .progress-percentage {
@@ -100,53 +216,91 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            font-size: 12px;
-            font-weight: bold;
+            font-size: 13px;
+            font-weight: 700;
             color: white;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            font-family: 'Segoe UI', sans-serif;
         }
 
-        /* Glassmorphism effect for the indicator */
+        /* Enhanced Glassmorphism effect */
         .scroll-indicator-bg {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.05));
+            backdrop-filter: blur(15px);
             border-radius: 50%;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.4);
         }
 
         /* Responsive design */
         @media (max-width: 768px) {
             .scroll-indicator {
-                width: 50px;
-                height: 50px;
+                width: 60px;
+                height: 60px;
                 bottom: 20px;
                 right: 20px;
             }
 
             .progress-ring-circle,
             .progress-ring-progress {
-                r: 21;
-                cx: 25;
-                cy: 25;
-                stroke-dasharray: 131.947;
-                stroke-dashoffset: 131.947;
+                r: 24;
+                cx: 30;
+                cy: 30;
+                stroke-dasharray: 150.796;
+                stroke-dashoffset: 150.796;
             }
 
             .progress-percentage {
-                font-size: 10px;
+                font-size: 11px;
             }
 
+            .section {
+                padding: 40px 20px;
+            }
+
+            .section h1 {
+                font-size: 2.5rem;
+                margin-bottom: 20px;
+            }
+
+            .section p {
+                font-size: 1.1rem;
+                padding: 20px;
+                border-radius: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
             .section h1 {
                 font-size: 2rem;
             }
 
             .section p {
                 font-size: 1rem;
+                padding: 15px;
+            }
+
+            .scroll-indicator {
+                width: 50px;
+                height: 50px;
+            }
+
+            .progress-ring-circle,
+            .progress-ring-progress {
+                r: 20;
+                cx: 25;
+                cy: 25;
+                stroke-dasharray: 125.664;
+                stroke-dashoffset: 125.664;
+            }
+
+            .progress-percentage {
+                font-size: 9px;
             }
         }
 
@@ -155,18 +309,63 @@
             scroll-behavior: smooth;
         }
 
-        /* Hide scrollbar but keep functionality */
+        /* Enhanced scrollbar styling */
         body::-webkit-scrollbar {
-            width: 8px;
+            width: 12px;
         }
 
         body::-webkit-scrollbar-track {
-            background: rgba(0,0,0,0.1);
+            background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.2));
+            border-radius: 6px;
         }
 
         body::-webkit-scrollbar-thumb {
-            background: rgba(255,255,255,0.3);
-            border-radius: 4px;
+            background: linear-gradient(to bottom, rgba(255,255,255,0.4), rgba(255,255,255,0.6));
+            border-radius: 6px;
+            border: 2px solid transparent;
+            background-clip: padding-box;
+            transition: all 0.3s ease;
+        }
+
+        body::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(to bottom, rgba(255,255,255,0.6), rgba(255,255,255,0.8));
+        }
+
+        /* Additional modern elements */
+        .modern-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 40px;
+            margin: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            transition: all 0.4s ease;
+        }
+
+        .modern-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+        }
+
+        /* Loading animation on page load */
+        .fade-in {
+            animation: fadeInUp 1s ease-out forwards;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Parallax effect for sections */
+        .parallax-element {
+            transform: translateZ(0);
+            will-change: transform;
         }
     </style>
 </head>
@@ -211,6 +410,13 @@
     <div class="scroll-indicator" onclick="scrollToTop()">
         <div class="scroll-indicator-bg"></div>
         <svg class="progress-ring">
+            <defs>
+                <linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1" />
+                    <stop offset="50%" style="stop-color:#f0f0f0;stop-opacity:0.8" />
+                    <stop offset="100%" style="stop-color:#ffffff;stop-opacity:1" />
+                </linearGradient>
+            </defs>
             <circle class="progress-ring-circle"></circle>
             <circle class="progress-ring-progress" id="progress"></circle>
         </svg>
@@ -218,7 +424,7 @@
     </div>
 
     <script>
-        // Scroll indicator functionality
+        // Enhanced scroll indicator functionality
         const progressRing = document.getElementById('progress');
         const percentageDisplay = document.getElementById('percentage');
         const radius = progressRing.r.baseVal.value;
@@ -234,12 +440,21 @@
             const scrollPercent = scrollTop / docHeight;
             const progressPercent = Math.round(scrollPercent * 100);
             
-            // Update the progress ring
+            // Update the progress ring with smooth animation
             const offset = circumference - (scrollPercent * circumference);
             progressRing.style.strokeDashoffset = offset;
             
-            // Update percentage display
+            // Update percentage display with smooth color transition
             percentageDisplay.textContent = progressPercent + '%';
+            
+            // Add dynamic styling based on progress
+            if (progressPercent > 75) {
+                progressRing.style.filter = 'drop-shadow(0 0 15px rgba(255,255,255,1))';
+            } else if (progressPercent > 50) {
+                progressRing.style.filter = 'drop-shadow(0 0 10px rgba(255,255,255,0.8))';
+            } else {
+                progressRing.style.filter = 'drop-shadow(0 0 5px rgba(255,255,255,0.6))';
+            }
         }
 
         function scrollToTop() {
@@ -247,33 +462,70 @@
                 top: 0,
                 behavior: 'smooth'
             });
+            
+            // Add click animation
+            const indicator = document.querySelector('.scroll-indicator');
+            indicator.style.transform = 'scale(0.9) rotate(-10deg)';
+            setTimeout(() => {
+                indicator.style.transform = '';
+            }, 200);
         }
 
-        // Add scroll event listener with throttling for better performance
+        // Enhanced scroll event listener with better performance
         let ticking = false;
         
         function requestTick() {
             if (!ticking) {
-                requestAnimationFrame(updateScrollProgress);
+                requestAnimationFrame(() => {
+                    updateScrollProgress();
+                    ticking = false;
+                });
                 ticking = true;
             }
         }
 
-        function finishTick() {
-            ticking = false;
-        }
+        // Smooth scroll progress updates
+        window.addEventListener('scroll', requestTick, { passive: true });
 
-        window.addEventListener('scroll', function() {
-            requestTick();
-            setTimeout(finishTick, 16); // ~60fps
+        // Initialize on page load with fade-in animation
+        window.addEventListener('load', function() {
+            updateScrollProgress();
+            
+            // Add fade-in animation to sections
+            const sections = document.querySelectorAll('.section');
+            sections.forEach((section, index) => {
+                section.style.animationDelay = `${index * 0.2}s`;
+                section.classList.add('fade-in');
+            });
+        });
+        
+        // Handle window resize with debouncing
+        let resizeTimeout;
+        window.addEventListener('resize', function() {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(updateScrollProgress, 100);
         });
 
-        // Initialize on page load
-        window.addEventListener('load', updateScrollProgress);
-        
-        // Handle window resize
-        window.addEventListener('resize', function() {
-            setTimeout(updateScrollProgress, 100);
+        // Add intersection observer for better performance
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeInUp 0.8s ease-out forwards';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections for scroll animations
+        document.addEventListener('DOMContentLoaded', function() {
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => {
+                observer.observe(section);
+            });
         });
     </script>
 </body>
